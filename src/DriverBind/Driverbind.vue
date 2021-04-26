@@ -25,12 +25,8 @@
 </template>
 
 <script>
-import Fbutton from '../common/Fbutton.vue'
 export default {
     name : 'DriverBind',
-    components: {
-			Fbutton
-		},
     data(){
         return {
             phone:'',

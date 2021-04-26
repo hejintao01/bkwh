@@ -33,7 +33,7 @@
         </div>
     </div>
     <div v-if="post[0].type=='承运商'" class="osearch" @click="changeshow">
-        <img class="iconsearch" @click="changeshow" src="https://lmsqas.whchem.com/myscm/web2/img_wechat/query.png">
+        <wx-image class="iconsearch" @click="changeshow" src="https://lmsqas.whchem.com/myscm/web2/img_wechat/query.png" mode="aspectFit"></wx-image>
     </div>
 
     <div class="modal-mask"  v-if="showmdal" >
@@ -125,9 +125,9 @@ export default {
 }
 .card{
     position: relative;
-    width: 360px;
-    height: 235px;
-    margin: 10px auto;
+    /* width: 360px;
+    height: 235px; */
+    margin: 0px 5px 10px 5px;
     border-radius: 4px;
     background-color: #FFFFFF;
     display: flex;
@@ -200,18 +200,16 @@ export default {
     
 }
 .osearch{
-    margin-right: 10px;
-    margin-bottom: 100px;
     position: fixed;
-    right: 0;
-    bottom: 0;
-    background: url(https://lmsqas.whchem.com/myscm/web2/img_wechat/query.png) no-repeat;
-    width: 45px;
-    height: 45px;
+    right: 5px;
+    bottom: 100px;
+    /* width: 45px;
+    height: 45px; */
     border-radius: 50%;
 }
 .iconsearch{
-
+    width: 38px;
+    height: 40px;
 }
 
 </style>

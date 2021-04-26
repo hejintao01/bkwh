@@ -6,11 +6,11 @@
     <div class="mid">
         <div class="inform"> 
             <span class="inform_t">用户名</span>
-            <input class="inform_v" placeholder="请输入用户名" maxlength="11" >
+            <input class="inform_v" placeholder="请输入用户名" >
         </div>
         <div class="inform"> 
             <span class="inform_t">密码</span>
-            <input class="inform_v" placeholder="输入正确密码" >
+            <input class="inform_v"  type="password" placeholder="输入正确密码" >
         </div>
         <div class="inform"> 
             <span class="inform_t">验证码</span>

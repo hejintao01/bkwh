@@ -45,10 +45,12 @@ export default {
 .rtop{
     margin: 0;
     padding: 0;
+    
 }
 .choose{
     margin-top: 160px;
     width: 100%;
+   
 }
 ul{
     margin: 0;
@@ -65,6 +67,7 @@ ul{
     display: flex;
     flex-direction: column;
     align-items: center;
+ 
 }
 .choose ul li img{
     flex:1;

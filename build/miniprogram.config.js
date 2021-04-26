@@ -25,7 +25,7 @@ module.exports = {
     },
     app: {
         backgroundTextStyle: 'dark',  //下拉 loading 的样式，仅支持 dark / light
-		navigationBarBackgroundColor: "#569FFF", //导航栏背景颜色
+		navigationBarBackgroundColor: "#13489D", //导航栏背景颜色
         navigationBarTextStyle: 'white', //导航栏标题颜色
         navigationBarTitleText: '万华',
     },
