@@ -1,10 +1,15 @@
 <template>
 <div class="ord">
-    <Tab></Tab>
-    <Orderlist @tap="preventTouchMove"></Orderlist>
+    <scroll-view scroll-y refresher-default-style="white" refresher-background="lightgreen" refresher-threshold="100">
+    <!-- 标题导航栏 -->
+    <Tab @changelist="changeshowlist"></Tab>
+    <!-- 列表展示 -->
+    <Orderlist  @tap="preventTouchMove" v-bind:postlist="showlist" @changeparsts="stscancel" :usertype="idtype"></Orderlist>
+    <!-- 弹窗 -->
     <div class="modal-mask" v-if="showmdal" >
         <Screencon @tap="preventTouchMove"></Screencon>
     </div>
+    </scroll-view>
 </div>
 </template>
 
@@ -14,31 +19,59 @@ import Screencon from '../common/Screeningconditions.vue'
 import Orderlist from '../common/OrderList.vue'
 export default {
     name : 'CarrierOrder',
-
+    data(){
+        return{
+            post:[
+                {id:'PS-20210000001',ino:'TS-2021000001',mno:'WS-00000333',arrive:"浙江省杭州市",saddress:"浙江省杭州市",status:2,type:'承运商'},
+                {id:'PS-20210000002',ino:'TS-2021000002',mno:'WS-00000333',arrive:"浙江省杭州市",saddress:"浙江省杭州市",status:1,type:'承运商'},
+                {id:'PS-20210000003',ino:'TS-2021000003',mno:'WS-00000333',arrive:"浙江省杭州市",saddress:"浙江省杭州市",status:2,type:'承运商'},
+                {id:'PS-20210000004',ino:'TS-2021000004',mno:'WS-00000333',arrive:"浙江省杭州市",saddress:"浙江省杭州市",status:1,type:'承运商'},
+            ],
+            showlist:[],
+            idtype:'承运商',
+            showmdal:false
+        }
+    },
     components:{
         Tab,
         Screencon,
         Orderlist
     },
-    
-    data(){
-        return{
-            showmdal:false
-        }
-    },
     created(){
-        wx.startPullDownRefresh()
         window.addEventListener('wxload', () => {
 			wx.setNavigationBarTitle({
       			title: '预约列表'  //修改title
 			})
+            this.showlist = this.post
 		})
+        
     },
     methods:{
-        preventTouchMove(data){
-            this.showmdal = data
+        preventTouchMove(e){
+            this.showmdal = e
+        },
+        changeshowlist(sts){
+            const that = this
+            that.showlist = []
+            if(sts == 3){
+                that.showlist = that.post
+            }else{
+                that.post.forEach(el =>{
+                    if(sts == el.status){
+                        that.showlist.push(el)
+                    }
+                })
+            }  
+        },
+        stscancel(listid){
+            this.showlist.forEach(el=>{
+                if(listid==el.id){
+                    el.status =2
+                }                
+                })
+                return this.showlist
         }
-    }
+     }
 }
 </script>
 
@@ -122,9 +155,8 @@ export default {
     border-top: 10px solid #F5A623;
 }
 .cbox{
-    flex:1;
     display: flex;
-    margin: 10px 10px 0 0;
+    margin: 15px 0px 10px 0;
 }
 .cleft{
     width: 80px;

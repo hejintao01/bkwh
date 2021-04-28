@@ -1,9 +1,9 @@
 <template>
 	
 	<div class="tab_status">	
-		<div :class="[{active: changecol == '1' },{stitle: changecol != '1'}]"  @click="changetab('1')">全部</div>	
-		<div :class="[{active: changecol == '2' },{stitle: changecol != '2'}]"  @click="changetab('2')">未预约</div>	
-		<div :class="[{active: changecol == '3' },{stitle: changecol != '3'}]"  @click="changetab('3')">已预约</div>		
+		<div :class="[{active: changecol == 3 },{stitle: changecol != 3}]"  @click="changetab(3)">全部</div>	
+		<div :class="[{active: changecol == 2 },{stitle: changecol != 2}]"  @click="changetab(2)">未预约</div>	
+		<div :class="[{active: changecol == 1 },{stitle: changecol != 1}]"  @click="changetab(1)">已预约</div>		
 	</div>
 </template>
 
@@ -12,14 +12,14 @@ export default {
     name : 'Tab',
 	data(){
 		return {
-			changecol :'1'
+			changecol :3
 		}
 	},
 	methods:{
 		changetab(status){
 			const that = this
-			console.log("当前状态是：" + status)
 			that.changecol = status
+			this.$emit('changelist',status)
 		}
 	}
 }

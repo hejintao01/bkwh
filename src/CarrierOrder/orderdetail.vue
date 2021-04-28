@@ -10,7 +10,7 @@
 			</div>
 			<div class="se-infor">
 				<span class="secondinfor">提货日期</span>
-				<wx-picker mode="date" :value="pickday"  class="thirdinfor" @change="changepickday($event)">
+				<wx-picker mode="selector" :value="pickday" :range="pickdayname" class="thirdinfor" @change="changepickday($event)">
 					{{pickday}}
 				</wx-picker>
 				<!-- <wx-picker mode="date" class="thirdinfor" :value="pickday" @change="changepickday($event)">
@@ -46,6 +46,7 @@
 		data: function() {
 			return {
 				pickday:'请选择',
+				pickdayname:['今天','明天'],
 				daytype:'全天',
 				daytypename:['全天','上午','下午'],
 				showmdal:false,
@@ -66,7 +67,7 @@
 			changepickday(e){
 				console.log(e);
 				const that = this;
-            	that.pickday = e.detail.value;
+            	that.pickday = that.pickdayname[e.target.value];
 			}
 		}
 	}
