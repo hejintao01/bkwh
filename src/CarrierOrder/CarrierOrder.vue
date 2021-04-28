@@ -1,42 +1,8 @@
 <template>
 <div class="ord">
     <Tab></Tab>
-    <div v-for="item in imgstatus" :key="item.id" class="card"> 
-        <div class="sts" >
-            <wx-image class="stsimgbox" :src="item.img" mode="aspectFit"></wx-image>
-        </div>
-        <div class="cbox">
-            <span class="cleft">订单号:</span>
-            <span class="cright">{{item.id}}</span>
-        </div>
-        <div class="cbox">
-            <span class="cleft">项目编号:</span>
-            <span class="cright">{{item.ino}}</span>
-        </div>
-        <div class="cbox">
-            <span class="cleft">物料编号:</span>
-            <span class="cright">{{item.mno}}</span>
-        </div>
-        <div class="cbox">
-            <span class="cleft">送货地址:</span>
-            <span class="cright">{{item.arrive}}</span>
-        </div>
-        <div class="cbox">
-            <span class="cleft">送达地址:</span>
-            <span class="cright">{{item.saddress}}</span>
-        </div>
-        <div v-if="item.status == 1 && item.type=='承运商'" class="cbtnbox">
-            <wx-button class="cbtn">取消预约</wx-button>
-        </div>
-        <div v-if="item.status != 1 && item.type=='承运商'" class="subbtnbox">
-            <wx-button class="subbtn" @click="onclickdetail(item)">预约</wx-button>
-        </div>
-    </div>
-    <div v-if="post[0].type=='承运商'" class="osearch" @click="changeshow">
-        <wx-image class="iconsearch" @click="changeshow" src="https://lmsqas.whchem.com/myscm/web2/img_wechat/query.png" mode="aspectFit"></wx-image>
-    </div>
-
-    <div class="modal-mask"  v-if="showmdal" >
+    <Orderlist @tap="preventTouchMove"></Orderlist>
+    <div class="modal-mask" v-if="showmdal" >
         <Screencon @tap="preventTouchMove"></Screencon>
     </div>
 </div>
@@ -45,58 +11,30 @@
 <script>
 import Tab from '../common/tab.vue'
 import Screencon from '../common/Screeningconditions.vue'
+import Orderlist from '../common/OrderList.vue'
 export default {
     name : 'CarrierOrder',
 
     components:{
         Tab,
-        Screencon
+        Screencon,
+        Orderlist
     },
     
     data(){
         return{
-            post:[
-
-                {id:'23456',ino:'test',mno:'333',arrive:"sad333asd",saddress:"we3we3qwe",status:2,type:'承运商'},
-                {id:'23456',ino:'test',mno:'333',arrive:"sad333asd",saddress:"we3we3qwe",status:1,type:'承运商'},
-                {id:'23456',ino:'test',mno:'333',arrive:"sad333asd",saddress:"we3we3qwe",status:2,type:'承运商'},
-                {id:'23456',ino:'test',mno:'333',arrive:"sad333asd",saddress:"we3we3qwe",status:1,type:'承运商'},
-               
-            ],
-            isshow:false,
-            showmdal:false,
-        }
-    },
-    computed:{
-        imgstatus(){
-            this.post.forEach(el => {
-                if(el.status==1){
-                    el.img = 'https://lmsqas.whchem.com/myscm/web2/img_wechat/orderno.png'
-                }else{
-                    el.img = 'https://lmsqas.whchem.com/myscm/web2/img_wechat/orderyes.png'
-                }
-            });
-            console.log('ss',this.post)
-            return this.post
+            showmdal:false
         }
     },
     created(){
-
+        wx.startPullDownRefresh()
         window.addEventListener('wxload', () => {
-			console.log('page2 wxload')
 			wx.setNavigationBarTitle({
       			title: '预约列表'  //修改title
 			})
 		})
     },
     methods:{
-        changeshow(){
-            this.isshow = true
-            this.showmdal=true
-        },
-        onclickdetail(item){
-            window.open('/CarrierOrder/'+item.id)
-        },
         preventTouchMove(data){
             this.showmdal = data
         }
@@ -135,18 +73,53 @@ export default {
     justify-content: center;
 }
 .sts{
-    height: 30px;
-    width: 50px;
+    height: 34px;
+    width: 54px;
     position: absolute;
-    right: 0;
-    top:0;
-    margin:2px 5px 0 0;
+    right: 5px;
+    top:2px;
     transform:translate(-50% -50%);
-    /* background: url(https://lmsqas.whchem.com/myscm/web2/img_wechat/orderno.png) no-repeat; */
 }
-.stsimgbox{
-    height: 30px;
-    width: 50px;
+
+.stsyes{
+    /* margin: 0 6px; */
+    text-align: center;
+    height: 24px;
+    width: 54px;
+    font-size: 14px;
+    position: relative; 
+    color: #FFFFFF;
+    line-height: 30px;
+    background-color: #699F2A;
+}
+.stsyes::before{
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: 0;
+    border-left: 26px solid transparent;
+    border-right: 26px solid transparent;
+    border-top: 10px solid #699F2A;
+}
+.stsno{
+    /* margin: 0 6px; */
+    text-align: center;
+    height: 24px;
+    width: 54px;
+    font-size: 14px;
+    position: relative; 
+    color: #FFFFFF;
+    line-height: 30px;
+    background-color: #F5A623;
+}
+.stsno::before{
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: 0;
+    border-left: 26px solid transparent;
+    border-right: 26px solid transparent;
+    border-top: 10px solid #F5A623;
 }
 .cbox{
     flex:1;

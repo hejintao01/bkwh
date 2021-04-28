@@ -141,6 +141,7 @@ input{
 }
 .lmscode{
     flex:1;
+    border-radius: 0;
     font-size: 16px;
     height: 30px;
     line-height: 30px;

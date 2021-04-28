@@ -42,6 +42,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: url(https://lmsqas.whchem.com/myscm/web2/img_wechat/tips.png) no-repeat;
 }
 .failspan{
     text-align: center;

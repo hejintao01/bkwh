@@ -10,11 +10,18 @@
 			</div>
 			<div class="se-infor">
 				<span class="secondinfor">提货日期</span>
-				<span class="thirdinfor">213213213213213</span>
+				<wx-picker mode="date" :value="pickday"  class="thirdinfor" @change="changepickday($event)">
+					{{pickday}}
+				</wx-picker>
+				<!-- <wx-picker mode="date" class="thirdinfor" :value="pickday" @change="changepickday($event)">
+					{{pickday}}
+				</wx-picker> -->
 			</div>
 			<div class="end-infor">
-				<span class="secondinfor">车辆信息</span>
-				<span class="thirdinfor">213213213213213</span>
+				<span class="secondinfor">时间段</span>
+				<wx-picker mode="selector" :value="daytype" :range="daytypename" class="thirdinfor" @change="changedaytype($event)">
+					{{daytype}}
+				</wx-picker>
 			</div>
 		</div>
 		<Subsection></Subsection>
@@ -38,18 +45,29 @@
 		},
 		data: function() {
 			return {
-				stardate:'',
+				pickday:'请选择',
+				daytype:'全天',
+				daytypename:['全天','上午','下午'],
 				showmdal:false,
 				}
 	
 		},
 		methods:{
 			submit(){
-            this.showmdal=true
+            	this.showmdal=true
 			},
 			preventTouchMove(data){
-            this.showmdal = data
-        }
+            	this.showmdal = data
+        	},
+			changedaytype(e){
+				const that = this;
+            	that.daytype = that.daytypename[e.target.value];
+			},
+			changepickday(e){
+				console.log(e);
+				const that = this;
+            	that.pickday = e.detail.value;
+			}
 		}
 	}
 </script>
@@ -105,7 +123,7 @@
 	}
 	.secondinfor{
 		width: 85px;
-		height: 20px;
+		height: 46px;
 		line-height: 46px;
 		font-size: 16px;
 		color: #434547;

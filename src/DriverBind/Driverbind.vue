@@ -10,7 +10,7 @@
         </div>
         <div class="inform"> 
             <span class="inform_t">身份证号</span>
-            <input class="inform_v" type="idcard" placeholder="输入正确身份证号" maxlength="18">
+            <input class="inform_v" type="idcard" placeholder="输入正确身份证号" maxlength="18" v-model="sfznumber">
         </div>
         <div class="inform"> 
             <span class="inform_t">验证码</span>
@@ -30,6 +30,7 @@ export default {
     data(){
         return {
             phone:'',
+            sfznumber:''
         }
     },
     created(){
@@ -44,23 +45,15 @@ export default {
         open(){
             window.open('/SuccessBind')
         },
-        phonecheck(e){
-            this.phone = e.detail.value;
-            this.phone = phone
-            if (!(/^1[34578]\d{9}$/.test(e.detail.value))) {
-            
-              console.log(phone.length)
-              if (phone.length >= 11) {
+        phonecheck(){
+            var re = /^1\d{10}$/;
+            let str = this.phone;
+            if(re.test(str)==false){
                 wx.showToast({
-                  title: '手机号有误',
-                  icon: 'none',
-                  duration: 1000
+                    title:'手机号有误',
+                    icon:'none',
+                    duration:1000
                 })
-              }
-            } else {
-              this.setData({
-                phonecheck: true
-              })
             }
         }
     }
@@ -131,6 +124,7 @@ input{
 }
 .inform_c{
     flex:1;
+    border-radius: 0;
     font-size: 16px;
     height: 30px;
     line-height: 30px;
