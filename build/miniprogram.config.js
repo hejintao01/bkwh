@@ -15,6 +15,11 @@ module.exports = {
             '/CarrierOrder/:id',
         ],
     },
+    pages:{
+        home: {
+		    pullDownRefresh: true,
+		},
+    },
     redirect: {
         notFound: 'home',
         accessDenied: 'home',
